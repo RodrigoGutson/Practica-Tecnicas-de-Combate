@@ -32,11 +32,22 @@ objetivoDificil :: Objetivo -> Bool
 objetivoDificil = (< 100) . gomuGomu
 
 objetivoAccesible :: Objetivo -> Bool
-objetivoAccesible objetivo = (golpeFocalizado objetivo > 200) && (golpeFocalizado objetivo < 400)
+objetivoAccesible = estaEntre.golpeFocalizado
 
 focalizar :: Objetivo -> Objetivo
-focalizar objetivo = take 7 objetivo
+focalizar objetivo = primerasSiete objetivo
 
-golpeFocalizado :: Objetivo -> Number
+golpeFocalizado :: Objetivo -> Presion
 golpeFocalizado = normalesConsecutivos.focalizar
 
+--Auxiliares
+---------------------------------------------------------
+between :: Ord a => a -> a -> a -> Bool
+between bajo alto medio = bajo <= medio && medio <= alto
+---------------------------------------------------------
+estaEntre :: Presion -> Bool
+estaEntre = between 200 400
+---------------------------------------------------------
+primerasSiete :: Objetivo -> Objetivo
+primerasSiete = take 7
+---------------------------------------------------------
